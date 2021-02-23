@@ -1,0 +1,4 @@
+tqdm
+bs4
+aiohttp
+lxml
