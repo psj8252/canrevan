@@ -34,8 +34,15 @@ def extract_article_urls(document: str) -> List[str]:
 
 def parse_article_content(document: str) -> str:
     strainer = SoupStrainer("div", attrs={"id": "articleBodyContents"})
+    metadata = BeautifulSoup(document, "html.parser")
     document = BeautifulSoup(document, "lxml", parse_only=strainer)
     content = document.find("div")
+
+    # Get headline & datetime
+    headline = metadata.select_one("#articleTitle").text
+    datetime = metadata.select_one(
+        "#main_content > div.article_header > div.article_info > div > span"
+    ).text
 
     # Skip invalid articles which do not contain news contents.
     if content is None:
@@ -56,7 +63,8 @@ def parse_article_content(document: str) -> str:
 
     # Normalize the contents by removing abnormal sentences.
     content = "\n".join(
-        [
+        [headline, datetime]
+        + [
             line
             for line in content.splitlines()
             if utils.is_normal_character(line[0]) and line[-1] == "."

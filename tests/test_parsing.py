@@ -40,6 +40,8 @@ def test_extracting_article_urls():
 def test_parsing_article_contents():
     content = parse_article_content(_get_resource_content("article_html"))
     assert json.decoder.scanstring(content, 1)[0] == (
+        '이재명, 자신 비판한 윤희숙에 "공개 토론하자"\n'
+        '2020.09.19. 오후 8:28\n'
         '이재명 경기도지사가 19일 "지자체에 지역화폐가 확산하면 단점이 '
         '심화할 수 있다"고 지적한 국민의힘 윤희숙 의원을 향해 "언론 뒤에 '
         '숨지 말고 공개 토론하자"고 제안했다.\n'
