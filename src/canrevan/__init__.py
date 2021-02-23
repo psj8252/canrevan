@@ -71,7 +71,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument(
-        "--output_path", default="articles.txt", help="output file path"
+        "--output_path", default="articles.tsv", help="output tsv file path"
     )
     parser.add_argument(
         "--category",

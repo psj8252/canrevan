@@ -34,15 +34,17 @@ def extract_article_urls(document: str) -> List[str]:
 
 def parse_article_content(document: str) -> str:
     strainer = SoupStrainer("div", attrs={"id": "articleBodyContents"})
-    metadata = BeautifulSoup(document, "html.parser")
+    metadata = BeautifulSoup(document, "lxml")
     document = BeautifulSoup(document, "lxml", parse_only=strainer)
     content = document.find("div")
 
     # Get headline & datetime
     headline = metadata.select_one("#articleTitle").text
     datetime = metadata.select_one(
-        "#main_content > div.article_header > div.article_info > div > span"
+        "#main_content > div.article_header > div.article_info > div > span.t11"
     ).text
+    category = metadata.select_one("#lnb > ul > li.on > a > span.tx").text
+    url = metadata.find("a", class_="naver-splugin").get("data-url")
 
     # Skip invalid articles which do not contain news contents.
     if content is None:
@@ -63,12 +65,14 @@ def parse_article_content(document: str) -> str:
 
     # Normalize the contents by removing abnormal sentences.
     content = "\n".join(
-        [headline, datetime]
-        + [
+        [
             line
             for line in content.splitlines()
             if utils.is_normal_character(line[0]) and line[-1] == "."
         ]
+    ).replace("\t", " ")
+    content = "\t".join(
+        [url, datetime, category, headline, json.encoder.encode_basestring(content)]
     )
 
-    return json.encoder.encode_basestring(content)
+    return content
