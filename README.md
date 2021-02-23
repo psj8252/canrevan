@@ -1,10 +1,8 @@
 # canrevan
 
-[![PyPI version](https://badge.fury.io/py/canrevan.svg)](https://badge.fury.io/py/canrevan)
-![build](https://github.com/affjljoo3581/canrevan/workflows/build/badge.svg)
-[![GitHub license](https://img.shields.io/github/license/affjljoo3581/canrevan)](https://github.com/affjljoo3581/canrevan/blob/master/LICENSE)
-[![codecov](https://codecov.io/gh/affjljoo3581/canrevan/branch/master/graph/badge.svg)](https://codecov.io/gh/affjljoo3581/canrevan)
-[![CodeFactor](https://www.codefactor.io/repository/github/affjljoo3581/canrevan/badge)](https://www.codefactor.io/repository/github/affjljoo3581/canrevan)
+[![build](https://github.com/psj8252/canrevan/actions/workflows/build.yml/badge.svg)](https://github.com/psj8252/canrevan/actions/workflows/build.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![codecov](https://codecov.io/gh/psj8252/canrevan/branch/master/graph/badge.svg?token=28ZMD36CJF)](https://codecov.io/gh/psj8252/canrevan)
 
 ## Introduction
 `canrevan`은 대량의 네이버 뉴스 기사를 수집하는 라이브러리입니다. 간단하게 한국어 뉴스
@@ -54,7 +52,7 @@ $ pip install canrevan
 ### From source
 혹은, 원격 저장소에서 복제하여 소스코드에서 직접 설치할 수 있습니다.
 ```console
-$ git clone https://github.com/affjljoo3581/canrevan.git
+$ git clone https://github.com/psj8252/canrevan.git
 $ cd canrevan
 $ python setup.py install
 ```
