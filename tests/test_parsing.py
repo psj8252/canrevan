@@ -41,11 +41,11 @@ def test_parsing_article_contents():
     content = parse_article_content(_get_resource_content("article_html")).split("\t")
     metadata = content[:-1]
     assert "\t".join(metadata) == (
-        "https://news.naver.com/main/read.nhn?"
+        "http://news.naver.com/main/read.nhn?"
         "mode=LSD&mid=sec&sid1=001&oid=029&aid=0002625369\t"
         "2020.09.19. 오후 8:28\t"
-        "속보\t"
-        '이재명, 자신 비판한 윤희숙에 "공개 토론하자"\t'
+        "정치\t"
+        '이재명, 자신 비판한 윤희숙에 "공개 토론하자"'
     )
     assert json.decoder.scanstring(content[-1], 1)[0] == (
         '이재명 경기도지사가 19일 "지자체에 지역화폐가 확산하면 단점이 '
