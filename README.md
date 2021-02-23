@@ -46,7 +46,7 @@ NLP task에서 가장 중요한 부분 중 하나는 데이터셋입니다. 특�
 ### With pip
 PyPI에서 canrevan을 설치할 수 있습니다. 자세한 명령어는 다음과 같습니다.
 ```console
-$ pip install canrevan
+$ pip install git+https://github.com/psj8252/canrevan.git
 ```
 
 ### From source
