@@ -39,12 +39,12 @@ def parse_article_content(document: str) -> str:
     content = document.find("div")
 
     # Get headline & datetime
-    headline = metadata.select_one("#articleTitle").text
+    headline = metadata.select_one("#articleTitle").text.strip()
     datetime = metadata.select_one(
         "#main_content > div.article_header > div.article_info > div > span.t11"
-    ).text
-    category = metadata.select_one("#lnb > ul > li.on > a > span.tx").text
-    url = metadata.find("a", class_="naver-splugin").get("data-url")
+    ).text.strip()
+    category = metadata.select_one("#lnb > ul > li.on > a > span.tx").text.strip()
+    url = metadata.find("a", class_="naver-splugin").get("data-url").strip()
 
     # Skip invalid articles which do not contain news contents.
     if content is None:
@@ -56,7 +56,7 @@ def parse_article_content(document: str) -> str:
         if child.name != "br":
             child.clear()
 
-    content = content.get_text(separator="\n").strip()
+    content = content.get_text(separator="\n").strip().replace("\t", " ")
     content = "\n".join([line.strip() for line in content.splitlines() if line.strip()])
 
     # Skip the contents which contain too many non-Korean characters.
@@ -64,15 +64,15 @@ def parse_article_content(document: str) -> str:
         raise ValueError("there are too few Korean characters in the content.")
 
     # Normalize the contents by removing abnormal sentences.
-    content = "\n".join(
+    content = "\\n".join(
         [
             line
             for line in content.splitlines()
             if utils.is_normal_character(line[0]) and line[-1] == "."
         ]
-    ).replace("\t", " ")
+    )
     content = "\t".join(
-        [url, datetime, category, headline, json.encoder.encode_basestring(content)]
+        [url, datetime, category, headline, content]
     )
 
     return content
