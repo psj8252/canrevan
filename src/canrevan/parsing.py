@@ -1,4 +1,3 @@
-import json
 import re
 from typing import List
 
@@ -57,22 +56,18 @@ def parse_article_content(document: str) -> str:
             child.clear()
 
     content = content.get_text(separator="\n").strip().replace("\t", " ")
-    content = "\n".join([line.strip() for line in content.splitlines() if line.strip()])
 
     # Skip the contents which contain too many non-Korean characters.
     if utils.korean_character_ratio(content) < 0.5:
         raise ValueError("there are too few Korean characters in the content.")
 
-    # Normalize the contents by removing abnormal sentences.
     content = "\\n".join(
         [
-            line
+            line.strip()
             for line in content.splitlines()
-            if utils.is_normal_character(line[0]) and line[-1] == "."
+            if line.strip() and utils.korean_character_ratio(line) > 0.5
         ]
     )
-    content = "\t".join(
-        [url, datetime, category, headline, content]
-    )
+    content = "\t".join([url, datetime, category, headline, content])
 
     return content
